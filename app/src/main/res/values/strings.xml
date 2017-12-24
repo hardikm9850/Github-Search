@@ -1,3 +1,11 @@
 <resources>
   <string name="app_name">Github search</string>
+  <string name="search">Enter query</string>
+    <string name="empty_query">Please enter repo name</string>
+  <string name="invalid_length_of_query">Query length should not be less than 3 characters</string>
+    <string name="no_data_found">No result found for your query</string>
+    <string name="description">Description</string>
+  <string name="project_link">Project link</string>
+    <string name="contributors">Contributors</string>
+    <string name="no_contributors_found_for_this_repo">No contributors found for this repo</string>
 </resources>
