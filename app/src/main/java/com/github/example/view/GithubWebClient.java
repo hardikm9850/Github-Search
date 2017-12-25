@@ -1,4 +1,4 @@
-package com.github.example;
+package com.github.example.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.webkit.WebViewClient;
+
+import com.github.example.R;
 
 
 /**

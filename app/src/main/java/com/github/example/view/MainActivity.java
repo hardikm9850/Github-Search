@@ -1,4 +1,4 @@
-package com.github.example;
+package com.github.example.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.github.example.R;
 import com.github.example.adapter.RepoAdapter;
 import com.github.example.contract.RepoContractor;
 import com.github.example.model.Item;

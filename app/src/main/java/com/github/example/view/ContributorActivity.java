@@ -1,4 +1,4 @@
-package com.github.example;
+package com.github.example.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.example.R;
 import com.github.example.adapter.RepoAdapter;
 import com.github.example.contract.ContributorContract;
 import com.github.example.model.Item;

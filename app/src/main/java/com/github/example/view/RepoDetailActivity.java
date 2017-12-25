@@ -1,4 +1,4 @@
-package com.github.example;
+package com.github.example.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,13 +14,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.github.example.R;
 import com.github.example.adapter.ContributorAdapter;
 import com.github.example.contract.RepoDetailContract;
 import com.github.example.model.Item;

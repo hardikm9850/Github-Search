@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.github.example.ContributorActivity;
+import com.github.example.view.ContributorActivity;
 import com.github.example.R;
 import com.github.example.callback.ItemClickListener;
 import com.github.example.model.contributor.Contributor;
