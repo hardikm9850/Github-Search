@@ -20,6 +20,10 @@ import java.util.List;
 public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCallback<RepoResponse> {
     RepoContractor.RepoView repoView;
     RepoInteractor repoInteractor;
+    private String orderBy = "watcher_count";
+    private String sortBy = "desc";
+    private int limit = 10;
+    private int pageIndex = 1;
 
     public RepoPresenterImpl(RepoContractor.RepoView repoView) {
         this.repoView = repoView;
@@ -37,8 +41,15 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
             return;
         }
         repoView.showDialog();
-        repoInteractor.fetchRepo(repoName, this);
+        repoInteractor.fetchRepo(repoName, sortBy, orderBy, limit, pageIndex, this);
     }
+
+    @Override
+    public void onFilterApplied(String sortBy, String orderBy) {
+        this.sortBy = sortBy;
+        this.orderBy = orderBy;
+    }
+
 
     @Override
     public void onSuccess(RepoResponse repoResponse) {

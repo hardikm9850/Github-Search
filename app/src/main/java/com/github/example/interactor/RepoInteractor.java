@@ -14,9 +14,9 @@ import rx.schedulers.Schedulers;
 
 public class RepoInteractor {
 
-    public void fetchRepo(String repoName, final ResultCallback<RepoResponse> resultCallback) {
+    public void fetchRepo(String repoName, String sortBy, String orderBy, int limit, int pageIndex, final ResultCallback<RepoResponse> resultCallback) {
         RestClient.getAPIInvokerInstance().
-                getRepositories(repoName, "watcher_count", "desc", 10, 1).
+                getRepositories(repoName, sortBy, orderBy, 10, 1).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<RepoResponse>() {

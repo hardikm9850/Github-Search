@@ -10,4 +10,14 @@
     <string name="no_contributors_found_for_this_repo">No contributors found for this repo</string>
     <string name="repositories">Repositories</string>
   <string name="no_result">No result found</string>
+    <string name="fetch_repo">Fetching repositories</string>
+  <string name="fetch_contributors">Fetching contributor details</string>
+  <string name="fetch_project_details">Fetching project details</string>
+    <string name="stars">Stars</string>
+  <string name="updated">Updated</string>
+  <string name="forks">Forks</string>
+    <string name="ascending">Ascending</string>
+  <string name="descending">Descending</string>
+    <string name="apply">Apply</string>
+  <string name="cancel">Cancel</string>
 </resources>

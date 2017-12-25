@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -77,7 +78,7 @@ public class ContributorActivity extends AppCompatActivity implements Contributo
                 load(avatarUrl).
                 transform(new CircleTransform(context)).
                 into(imgAvatar);
-        progressDialog = DisplayUtils.getProgressDialog(this);
+        progressDialog = DisplayUtils.getProgressDialog(this,getString(R.string.fetch_contributors));
 
         repos = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -111,5 +112,15 @@ public class ContributorActivity extends AppCompatActivity implements Contributo
     @Override
     public void onFailedToReceiveResponse(int errorResId) {
         Toast.makeText(context,errorResId,Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

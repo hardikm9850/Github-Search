@@ -84,7 +84,7 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailC
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         context = this;
-        progressDialog = DisplayUtils.getProgressDialog(this);
+        progressDialog = DisplayUtils.getProgressDialog(this,getString(R.string.fetch_project_details));
         repoObject = getIntent().getParcelableExtra(TAG_DATA);
         contributorAdapter = new ContributorAdapter(context);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -104,7 +104,7 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailC
         toolbarLayout.setTitle(repoName);
         txtProjectDescription.setText(description);
         txtProjectLink.setText(Html.fromHtml(repoLink));
-        Linkify.addLinks(txtProjectLink, Linkify.ALL);//Making link clickable
+        //Linkify.addLinks(txtProjectLink, Linkify.ALL);//Making link clickable
         Glide.with(context).
                 load(ownerAvatar).
                 transform(new CircleTransform(context)).
@@ -126,8 +126,8 @@ public class RepoDetailActivity extends AppCompatActivity implements RepoDetailC
     @OnClick(R.id.txt_project_link)
     public void onGithubRepoLinkClicked(View view) {
         String url = txtProjectLink.getText().toString();
-        Intent intent = new Intent(context, WebClient.class);
-        intent.putExtra(WebClient.TAG_URL, url);
+        Intent intent = new Intent(context, GithubWebClient.class);
+        intent.putExtra(GithubWebClient.TAG_URL, url);
         context.startActivity(intent);
     }
 

@@ -11,7 +11,7 @@ public interface RepoContractor {
     interface RepoPresenter{
         void onQuerySubmitted(String repoName);
 
-
+        void onFilterApplied(String sortBy,String orderBy);
     }
 
     interface RepoView{
