@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
         repoPresenter = new RepoPresenterImpl(this);
         progressDialog = DisplayUtils.getProgressDialog(this, getString(R.string.fetch_repo));
         fabFilter.setOnClickListener(this);
+        //TODO Saving filter option in application class or in sharedprefs
     }
 
     private String getCheckedOrderByOption() {
