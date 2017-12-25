@@ -26,7 +26,7 @@ public class RestClient {
     private static Gson gson;
     private static APIService apiService;
 
-    public static Retrofit getRetrofitInstance() {
+    private static Retrofit getRetrofitInstance() {
         if (mSharedInstance == null) {
             gson = new GsonBuilder().setLenient().create();
             mSharedInstance = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
@@ -57,6 +57,7 @@ public class RestClient {
         builderHttpClient.readTimeout(5, TimeUnit.MINUTES);
         builderHttpClient.writeTimeout(5, TimeUnit.MINUTES);
         builderHttpClient.addInterceptor(logging);
+        builderHttpClient.addInterceptor(new RequestInterceptor());
         builderHttpClient.retryOnConnectionFailure(true);
         return builderHttpClient;
     }

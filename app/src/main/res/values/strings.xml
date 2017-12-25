@@ -8,4 +8,6 @@
   <string name="project_link">Project link</string>
     <string name="contributors">Contributors</string>
     <string name="no_contributors_found_for_this_repo">No contributors found for this repo</string>
+    <string name="repositories">Repositories</string>
+  <string name="no_result">No result found</string>
 </resources>
