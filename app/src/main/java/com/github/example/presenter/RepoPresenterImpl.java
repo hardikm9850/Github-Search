@@ -31,10 +31,13 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
     private String sortBy = "desc";
     private int limit = 10;
     private int pageIndex = 1;
+    private SharedPreferences sharedPreferences;
 
     public RepoPresenterImpl(RepoContractor.RepoView repoView) {
         this.repoView = repoView;
         repoInteractor = new RepoInteractor();
+        Context context = repoView.getContext();
+        sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -57,8 +60,6 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
     }
 
     private void getDataFromPreference() {
-        Context context = repoView.getContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         sortBy = sharedPreferences.getString(KEY_SORT_BY, "desc");
         orderBy = sharedPreferences.getString(KEY_ORDER_BY, "watcher_count");
     }
@@ -72,16 +73,12 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
 
     @Override
     public void getSelectedFilterOption() {
-        Context context = repoView.getContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         String sortBy = sharedPreferences.getString(KEY_SORT_BY, "watcher_count");
         String orderBy = sharedPreferences.getString(KEY_ORDER_BY, "desc");
         repoView.onStoredFilterReceived(orderBy,sortBy);
     }
 
     private void storeFilterInPreference(String sortBy, String orderBy) {
-        Context context = repoView.getContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_SORT_BY, sortBy);
         editor.putString(KEY_ORDER_BY, orderBy);
@@ -129,8 +126,6 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
      * @return
      */
     private boolean shouldSortData() {
-        Context context = repoView.getContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         orderBy = sharedPreferences.getString(KEY_ORDER_BY, "watcher_count");
         return orderBy.equals("watcher_count");
     }
