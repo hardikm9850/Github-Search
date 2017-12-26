@@ -21,7 +21,6 @@ import com.github.example.contract.ContributorContract;
 import com.github.example.model.Item;
 import com.github.example.model.contributor.Contributor;
 import com.github.example.presenter.ContributorPresenterImpl;
-import com.github.example.presenter.RepoPresenterImpl;
 import com.github.example.utils.CircleTransform;
 import com.github.example.utils.DisplayUtils;
 
@@ -60,7 +59,7 @@ public class ContributorActivity extends AppCompatActivity implements Contributo
         ButterKnife.bind(this);
         Contributor contributor = getIntent().getParcelableExtra(TAG_DATA);
         if (contributor == null) {
-            Toast.makeText(this, "Something went wrong, plese try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.something_went_wrong, Toast.LENGTH_SHORT).show();
             return;
         }
         setSupportActionBar(toolbar);

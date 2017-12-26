@@ -12,8 +12,8 @@ import java.util.List;
  */
 
 public class RepoDetailPresenterImpl implements RepoDetailContract.RepoDetailPresenter,ResultCallback<List<Contributor>> {
-    RepoDetailContract.RepoDetailView repoDetailView;
-    RepoDetailInteractor repoDetailInteractor;
+    private RepoDetailContract.RepoDetailView repoDetailView;
+    private RepoDetailInteractor repoDetailInteractor;
 
     public RepoDetailPresenterImpl(RepoDetailContract.RepoDetailView repoDetailView) {
         this.repoDetailView = repoDetailView;

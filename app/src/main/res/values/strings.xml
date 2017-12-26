@@ -20,4 +20,6 @@
   <string name="descending">Descending</string>
     <string name="apply">Apply</string>
   <string name="cancel">Cancel</string>
+    <string name="internet_required">Need internet connection</string>
+    <string name="something_went_wrong">Something went wrong, please try again</string>
 </resources>

@@ -16,7 +16,7 @@ public class RepoInteractor {
 
     public void fetchRepo(String repoName, String sortBy, String orderBy, int limit, int pageIndex, final ResultCallback<RepoResponse> resultCallback) {
         RestClient.getAPIInvokerInstance().
-                getRepositories(repoName, sortBy, orderBy, 10, 1).
+                getRepositories(repoName, sortBy, orderBy, limit, pageIndex).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Subscriber<RepoResponse>() {

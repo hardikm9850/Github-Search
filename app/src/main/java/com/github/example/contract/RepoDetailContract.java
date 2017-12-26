@@ -20,7 +20,7 @@ public interface RepoDetailContract {
 
     }
 
-    interface RepoDetailPresenter<RepoDetailView> {
+    interface RepoDetailPresenter {
         void fetchContributors(String owner,String repoName);
     }
 }

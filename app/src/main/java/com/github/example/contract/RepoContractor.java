@@ -1,5 +1,7 @@
 package com.github.example.contract;
 
+import android.content.Context;
+
 import com.github.example.model.RepoResponse;
 
 /**
@@ -12,6 +14,8 @@ public interface RepoContractor {
         void onQuerySubmitted(String repoName);
 
         void onFilterApplied(String sortBy,String orderBy);
+
+        void getSelectedFilterOption();
     }
 
     interface RepoView{
@@ -26,6 +30,10 @@ public interface RepoContractor {
         void showDialog();
 
         void hideDialog();
+
+        Context getContext();
+
+        void onStoredFilterReceived(String orderBy,String sortBy);
     }
 
 }
