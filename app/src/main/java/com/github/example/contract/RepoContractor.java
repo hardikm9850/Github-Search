@@ -2,6 +2,7 @@ package com.github.example.contract;
 
 import android.content.Context;
 
+import com.github.example.model.Filter;
 import com.github.example.model.RepoResponse;
 
 /**
@@ -10,15 +11,22 @@ import com.github.example.model.RepoResponse;
 
 public interface RepoContractor {
 
-    interface RepoPresenter{
+    interface RepoPresenter {
+        String[] languageArray = new String[]{"No option selected", "Java", "C", "C++", "PHP"};
+        String[] licenseNameArray = new String[]{"No option selected", "mit", "apache-2.0", "artistic-2.0", "osl-3.0"};
+        String[] noOfForksArray = new String[]{"No option selected", "forks:<100", "forks:<500", "forks:<1000", "forks:>1000", "forks:>2000"};
+        String[] searchInArray = new String[]{"No option selected", "name", "description", "readme"};
+
         void onQuerySubmitted(String repoName);
 
-        void onFilterApplied(String sortBy,String orderBy);
+        void onFilterApplied(Filter filter, String query);
 
         void getSelectedFilterOption();
+
+        void clearFilters();
     }
 
-    interface RepoView{
+    interface RepoView {
         void onInvalidQueryEntered(int errorResId);
 
         void onResponseReceived(RepoResponse repoResponse);
@@ -33,7 +41,7 @@ public interface RepoContractor {
 
         Context getContext();
 
-        void onStoredFilterReceived(String orderBy,String sortBy);
+        void onStoredFilterReceived(Filter filter);
     }
 
 }

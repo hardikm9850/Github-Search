@@ -1,25 +1,26 @@
 <resources>
-  <string name="app_name">Github search</string>
-  <string name="search">Enter query</string>
+    <string name="app_name">Github search</string>
+    <string name="search">Enter query</string>
     <string name="empty_query">Please enter repo name</string>
-  <string name="invalid_length_of_query">Query length should not be less than 3 characters</string>
+    <string name="invalid_length_of_query">Query length should not be less than 3 characters</string>
     <string name="no_data_found">No result found for your query</string>
     <string name="description">Description</string>
-  <string name="project_link">Project link</string>
+    <string name="project_link">Project link</string>
     <string name="contributors">Contributors</string>
     <string name="no_contributors_found_for_this_repo">No contributors found for this repo</string>
     <string name="repositories">Repositories</string>
-  <string name="no_result">No result found</string>
+    <string name="no_result">No result found</string>
     <string name="fetch_repo">Fetching repositories</string>
-  <string name="fetch_contributors">Fetching contributor details</string>
-  <string name="fetch_project_details">Fetching project details</string>
+    <string name="fetch_contributors">Fetching contributor details</string>
+    <string name="fetch_project_details">Fetching project details</string>
     <string name="stars">Stars</string>
-  <string name="updated">Updated</string>
-  <string name="forks">Forks</string>
+    <string name="updated">Updated</string>
+    <string name="forks">Forks</string>
     <string name="ascending">Ascending</string>
-  <string name="descending">Descending</string>
+    <string name="descending">Descending</string>
     <string name="apply">Apply</string>
-  <string name="cancel">Cancel</string>
+    <string name="reset_filter">Reset</string>
     <string name="internet_required">Need internet connection</string>
     <string name="something_went_wrong">Something went wrong, please try again</string>
+    <string name="watcher_count">Watcher count</string>
 </resources>

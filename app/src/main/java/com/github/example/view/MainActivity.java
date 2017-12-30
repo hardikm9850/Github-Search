@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.github.example.R;
 import com.github.example.adapter.RepoAdapter;
 import com.github.example.contract.RepoContractor;
+import com.github.example.model.Filter;
 import com.github.example.model.Item;
 import com.github.example.model.RepoResponse;
 import com.github.example.presenter.RepoPresenterImpl;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
     private View dialogView;
     private Dialog dialog;
     private FilterDialog filterDialog;
+    private SearchView searchViewAndroidActionBar;
 
 
     @Override
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchViewAndroidActionBar.setOnQueryTextListener(onQueryTextListener);
         return super.onCreateOptionsMenu(menu);
     }
@@ -142,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
 
     @Override
     public void onEmptyResponseReceived() {
+        repoAdapter.setData((new ArrayList<Item>()));
         Toast.makeText(context, R.string.no_data_found, Toast.LENGTH_SHORT).show();
     }
 
@@ -177,23 +180,24 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
     }
 
     @Override
-    public void onStoredFilterReceived(String orderBy, String sortBy) {
-        filterDialog.onStoredFilterReceived(orderBy, sortBy);
+    public void onStoredFilterReceived(Filter filter) {
+        filterDialog.onStoredFilterReceived(filter);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_apply: {
-                String sortBy = filterDialog.getCheckedSortByOption();
-                String orderBy = filterDialog.getCheckedOrderByOption();
-                repoPresenter.onFilterApplied(sortBy.toLowerCase(), orderBy.toLowerCase());
+                Filter filter = filterDialog.getFilters();
+                String query = searchViewAndroidActionBar.getQuery().toString();
+                repoPresenter.onFilterApplied(filter, query);
                 filterDialog.revealShow(false);
             }
             break;
             case R.id.closeDialogImg:
             case R.id.btn_cancel: {
                 filterDialog.revealShow(false);
+                repoPresenter.clearFilters();
             }
             break;
             case R.id.fab_filter: {
@@ -202,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
                 repoPresenter.getSelectedFilterOption();
             }
             break;
+
         }
     }
 }
