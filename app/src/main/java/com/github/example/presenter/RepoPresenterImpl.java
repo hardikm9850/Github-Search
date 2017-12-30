@@ -98,7 +98,11 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
         return stringBuilder.toString();
     }
 
-
+    /**
+     * Stores and makes API call when user updates filter option
+     * @param filter filter object
+     * @param query query that user is searching
+     */
     @Override
     public void onFilterApplied(Filter filter, String query) {
         storeFilterInSharedPreference(filter);
@@ -123,6 +127,9 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
         editor.apply();
     }
 
+    /**
+     * Provides stored filter option to callee(i.e view)
+     */
     @Override
     public void getSelectedFilterOption() {
         String sortBy = sharedPreferences.getString(KEY_SORT_BY, DEFAULT_SORT_BY);
@@ -144,10 +151,17 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
      * Clears stored filter options
      */
     @Override
-    public void clearFilters() {
+    public void clearFilters(String query) {
         sharedPreferences.edit().clear().apply();
+        if (TextUtils.isEmpty(query))
+            return;
+        onQuerySubmitted(query);
     }
 
+    /**
+     * Receives response data from API and passes it to view if it not empty
+     * @param repoResponse repoResponse object for View
+     */
     @Override
     public void onSuccess(RepoResponse repoResponse) {
         repoView.hideDialog();
@@ -184,6 +198,10 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
         });
     }
 
+    /**
+     * API call failed because of some reason, we show error message to user
+     * @param e
+     */
     @Override
     public void onFailed(Throwable e) {
         repoView.hideDialog();

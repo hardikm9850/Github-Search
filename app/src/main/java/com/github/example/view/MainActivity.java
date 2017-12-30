@@ -1,6 +1,5 @@
 package com.github.example.view;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -81,10 +80,9 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
     private ProgressDialog progressDialog;
     private RepoAdapter repoAdapter;
     private ArrayList<Item> repos;
-    private View dialogView;
-    private Dialog dialog;
     private FilterDialog filterDialog;
     private SearchView searchViewAndroidActionBar;
+    private Filter storedFilter;
 
 
     @Override
@@ -154,10 +152,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo == null) {
-            return false;
-        }
-        return networkInfo.isConnected();
+        return networkInfo != null && networkInfo.isConnected();
     }
 
     @Override
@@ -181,7 +176,8 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
 
     @Override
     public void onStoredFilterReceived(Filter filter) {
-        filterDialog.onStoredFilterReceived(filter);
+        storedFilter = filter;
+        filterDialog.onStoredFilterReceived(storedFilter);
     }
 
     @Override
@@ -189,15 +185,22 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
         switch (view.getId()) {
             case R.id.btn_apply: {
                 Filter filter = filterDialog.getFilters();
+                filterDialog.revealShow(false);
+                if (storedFilter != null && storedFilter.equals(filter)) { //no need to make api call when filter was not changed
+                    return;
+                }
                 String query = searchViewAndroidActionBar.getQuery().toString();
                 repoPresenter.onFilterApplied(filter, query);
+            }
+            break;
+            case R.id.closeDialogImg: {
                 filterDialog.revealShow(false);
             }
             break;
-            case R.id.closeDialogImg:
             case R.id.btn_cancel: {
                 filterDialog.revealShow(false);
-                repoPresenter.clearFilters();
+                String query = searchViewAndroidActionBar.getQuery().toString();
+                repoPresenter.clearFilters(query);
             }
             break;
             case R.id.fab_filter: {
@@ -206,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
                 repoPresenter.getSelectedFilterOption();
             }
             break;
-
         }
     }
 }

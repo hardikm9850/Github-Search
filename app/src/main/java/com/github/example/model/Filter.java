@@ -47,6 +47,32 @@ public class Filter {
         return sortBy;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Filter filter = (Filter) o;
+
+        if (languageIndex != filter.languageIndex) return false;
+        if (numberOfForksIndex != filter.numberOfForksIndex) return false;
+        if (licenseIndex != filter.licenseIndex) return false;
+        if (searchInIndex != filter.searchInIndex) return false;
+        if (!orderBy.equals(filter.orderBy)) return false;
+        return sortBy.equals(filter.sortBy);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = languageIndex;
+        result = 31 * result + numberOfForksIndex;
+        result = 31 * result + licenseIndex;
+        result = 31 * result + searchInIndex;
+        result = 31 * result + orderBy.hashCode();
+        result = 31 * result + sortBy.hashCode();
+        return result;
+    }
+
     public static final class Builder {
         private int languageIndex;
         private int numberOfForksIndex;

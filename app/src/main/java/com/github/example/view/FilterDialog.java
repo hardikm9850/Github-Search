@@ -71,10 +71,12 @@ class FilterDialog extends Dialog {
     private View dialogView;
     private Dialog dialog;
     private Context context;
+
     private String[] languageArray = new String[]{"No option selected", "Java", "C", "C++", "PHP"};
-    private String[] licenseArray = new String[]{"No option selected", "MIT", "Apache license 2.0", "Artistic license 2.0", "Open Software License 3.0"};
-    private String[] noOfForks = new String[]{"No option selected", "Less than 100", "Less than 500", "Less than 1000", "Greater than 1000", "Greater than 2000"};
-    private String[] searchInArray = new String[]{"No option selected", "Title", "Description", "ReadMe.MD"};
+    private String[] licenseArray = new String[]{"No option selected", "MIT", "Apache license 2.0", "Artistic license 2.0", "Open Software License 3.0", "PostgreSQL License", "Mozilla Public License 2.0", "BSD 2-clause \"Simplified\" license"};
+    private String[] noOfForks = new String[]{"No option selected", "Less than 100", "100 - 500", "500 - 1000", "1000 - 2000", "Greater than 2000"};
+
+    private String[] searchInArray = new String[]{"No option selected", "Title", "Description", "Read me"};
 
 
     FilterDialog(@NonNull Context context, FloatingActionButton fabFilter, View.OnClickListener clickListener) {
