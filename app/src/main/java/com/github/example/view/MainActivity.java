@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements RepoContractor.Re
             }
             break;
             case R.id.fab_filter: {
-                filterDialog = new FilterDialog(context, fabFilter, this);
+                filterDialog = new FilterDialog(this, fabFilter, this);
                 filterDialog.createDialog();
                 repoPresenter.getSelectedFilterOption();
             }

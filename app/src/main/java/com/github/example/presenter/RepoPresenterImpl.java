@@ -71,6 +71,8 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
 
         sortBy = sharedPreferences.getString(KEY_SORT_BY, DEFAULT_SORT_BY);
         orderBy = sharedPreferences.getString(KEY_ORDER_BY, DEFAULT_ORDER_BY);
+        String createdFromDate = sharedPreferences.getString(KEY_CREATED_FROM_DATE, DATE_PLACEHOLDER);
+        String createdToDate = sharedPreferences.getString(KEY_CREATED_TO_DATE, DATE_PLACEHOLDER);
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(repoName);
@@ -95,13 +97,19 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
             stringBuilder.append("in:");
             stringBuilder.append(searchInArray[searchIndex]);
         }
+        if (!createdFromDate.equalsIgnoreCase(DATE_PLACEHOLDER) && !createdToDate.equalsIgnoreCase(DATE_PLACEHOLDER)) {
+            stringBuilder.append(add);
+            stringBuilder.append("created:");
+            stringBuilder.append(createdFromDate).append("..").append(createdToDate);
+        }
         return stringBuilder.toString();
     }
 
     /**
      * Stores and makes API call when user updates filter option
+     *
      * @param filter filter object
-     * @param query query that user is searching
+     * @param query  query that user is searching
      */
     @Override
     public void onFilterApplied(Filter filter, String query) {
@@ -120,6 +128,8 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_SORT_BY, filter.getSortBy());
         editor.putString(KEY_ORDER_BY, filter.getOrderBy());
+        editor.putString(KEY_CREATED_FROM_DATE, filter.getFromDate());
+        editor.putString(KEY_CREATED_TO_DATE, filter.getToDate());
         editor.putInt(KEY_LANGUAGE_INDEX, filter.getLanguageIndex());
         editor.putInt(KEY_LICENSE_INDEX, filter.getLicenseIndex());
         editor.putInt(KEY_NUMBER_OF_FORKS_INDEX, filter.getNumberOfForksIndex());
@@ -138,12 +148,14 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
         int licenseIndex = sharedPreferences.getInt(KEY_LICENSE_INDEX, 0);
         int forkIndex = sharedPreferences.getInt(KEY_NUMBER_OF_FORKS_INDEX, 0);
         int searchIndex = sharedPreferences.getInt(KEY_SEARCH_IN_INDEX, 0);
-
+        String createdFromDate = sharedPreferences.getString(KEY_CREATED_FROM_DATE, DATE_PLACEHOLDER);
+        String createdToDate = sharedPreferences.getString(KEY_CREATED_TO_DATE, DATE_PLACEHOLDER);
         Filter.Builder filterBuilder = new Filter.Builder();
         filterBuilder.
                 sortBy(sortBy).orderBy(orderBy).
                 searchInIndex(searchIndex).numberOfForksIndex(forkIndex).
-                languageIndex(languageIndex).licenseIndex(licenseIndex);
+                languageIndex(languageIndex).licenseIndex(licenseIndex).
+                fromDate(createdFromDate).toDate(createdToDate);
         repoView.onStoredFilterReceived(filterBuilder.build());
     }
 
@@ -160,6 +172,7 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
 
     /**
      * Receives response data from API and passes it to view if it not empty
+     *
      * @param repoResponse repoResponse object for View
      */
     @Override
@@ -200,6 +213,7 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
 
     /**
      * API call failed because of some reason, we show error message to user
+     *
      * @param e
      */
     @Override

@@ -9,21 +9,26 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.SpinnerAdapter;
 
 import com.github.example.R;
+import com.github.example.callback.Callback;
 import com.github.example.model.Filter;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,12 +70,24 @@ class FilterDialog extends Dialog {
     AppCompatSpinner spinnerSearchIn;
     @BindView(R.id.radio_watcher_count)
     AppCompatRadioButton radioWatcherCount;
+    @BindView(R.id.edt_topic)
+    AppCompatEditText edtTopic;
+    @BindView(R.id.txt_from_date)
+    AppCompatTextView txtFromDate;
+    @BindView(R.id.linear_from_date)
+    LinearLayout linearFromDate;
+    @BindView(R.id.txt_to_date)
+    AppCompatTextView txtToDate;
+    @BindView(R.id.linear_to_date)
+    LinearLayout linearToDate;
 
     private View.OnClickListener onClickListener;
     private final FloatingActionButton fabFilter;
     private View dialogView;
     private Dialog dialog;
+    private FragmentActivity activity;
     private Context context;
+    private final String DATE_PLACEHOLDER = "YYYY/MM/DD";
 
     private String[] languageArray = new String[]{"No option selected", "Java", "C", "C++", "PHP"};
     private String[] licenseArray = new String[]{"No option selected", "MIT", "Apache license 2.0", "Artistic license 2.0", "Open Software License 3.0", "PostgreSQL License", "Mozilla Public License 2.0", "BSD 2-clause \"Simplified\" license"};
@@ -79,9 +96,10 @@ class FilterDialog extends Dialog {
     private String[] searchInArray = new String[]{"No option selected", "Title", "Description", "Read me"};
 
 
-    FilterDialog(@NonNull Context context, FloatingActionButton fabFilter, View.OnClickListener clickListener) {
-        super(context);
-        this.context = context;
+    FilterDialog(@NonNull FragmentActivity activity, FloatingActionButton fabFilter, View.OnClickListener clickListener) {
+        super(activity);
+        this.activity = activity;
+        this.context = activity;
         this.fabFilter = fabFilter;
         onClickListener = clickListener;
     }
@@ -95,6 +113,9 @@ class FilterDialog extends Dialog {
         ImageView imageView = dialog.findViewById(R.id.closeDialogImg);
         dialog.findViewById(R.id.btn_apply).setOnClickListener(onClickListener);
         dialog.findViewById(R.id.btn_cancel).setOnClickListener(onClickListener);
+        linearFromDate.setOnClickListener(datePickerListener);
+        linearToDate.setOnClickListener(datePickerListener);
+
         imageView.setOnClickListener(onClickListener);
         dialog.setOnKeyListener(new OnKeyListener() {
             @Override
@@ -120,6 +141,7 @@ class FilterDialog extends Dialog {
         radioUpdated = dialog.findViewById(R.id.radio_updated);
         radioAscending = dialog.findViewById(R.id.radio_ascending);
         radioDescending = dialog.findViewById(R.id.radio_descending);
+
         setAdapterToFilterOptions();
         Window window = dialog.getWindow();
         if (window != null) {
@@ -127,6 +149,37 @@ class FilterDialog extends Dialog {
         }
         dialog.show();
     }
+
+    private View.OnClickListener datePickerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.linear_from_date: {
+                    DialogFragment datePickerFragment = new DatePickerFragment(new Callback<DatePickerFragment.DateFormat>() {
+                        @Override
+                        public void returnResult(DatePickerFragment.DateFormat dateFormat) {
+                            txtFromDate.setText(dateFormat.toString());
+                            if (txtToDate.getText().toString().equalsIgnoreCase(DATE_PLACEHOLDER)) {
+                                txtToDate.setText(dateFormat.toString());
+                            }
+                        }
+                    });
+                    datePickerFragment.show(activity.getSupportFragmentManager(), "Select From date");
+                }
+                break;
+                case R.id.linear_to_date: {
+                    DialogFragment datePickerFragment = new DatePickerFragment(new Callback<DatePickerFragment.DateFormat>() {
+                        @Override
+                        public void returnResult(DatePickerFragment.DateFormat dateFormat) {
+                            txtToDate.setText(dateFormat.toString());
+                        }
+                    });
+                    datePickerFragment.show(activity.getSupportFragmentManager(), "Select To date");
+                }
+                break;
+            }
+        }
+    };
 
 
     private void setAdapterToFilterOptions() {
@@ -152,6 +205,8 @@ class FilterDialog extends Dialog {
         int licenseIndex = spinnerLicense.getSelectedItemPosition();
         int forkIndex = spinnerNumberOfForks.getSelectedItemPosition();
         int searchIndex = spinnerSearchIn.getSelectedItemPosition();
+        String fromDate = txtFromDate.getText().toString();
+        String toDate = txtToDate.getText().toString();
 
         int checkedSortByButtonId = radioGroupSortBy.getCheckedRadioButtonId();
         String sortBy = "watcher_count";
@@ -185,7 +240,8 @@ class FilterDialog extends Dialog {
         builder.orderBy(orderBy.toLowerCase()). //order by
                 sortBy(sortBy.toLowerCase()). //sort by
                 languageIndex(languageIndex).licenseIndex(licenseIndex). //filtering options
-                numberOfForksIndex(forkIndex).searchInIndex(searchIndex);
+                numberOfForksIndex(forkIndex).searchInIndex(searchIndex).
+                fromDate(fromDate).toDate(toDate); //date
         return builder.build();
     }
 
@@ -201,6 +257,8 @@ class FilterDialog extends Dialog {
         int licenseIndex = filter.getLicenseIndex();
         int searchInIndex = filter.getSearchInIndex();
         int numberOfForks = filter.getNumberOfForksIndex();
+        String fromDate = filter.getFromDate();
+        String toDate = filter.getToDate();
 
         switch (sortBy) {
             case "watcher_count": {
@@ -234,6 +292,8 @@ class FilterDialog extends Dialog {
         spinnerLicense.setSelection(licenseIndex);
         spinnerSearchIn.setSelection(searchInIndex);
         spinnerNumberOfForks.setSelection(numberOfForks);
+        txtFromDate.setText(fromDate);
+        txtToDate.setText(toDate);
     }
 
     void revealShow(boolean shouldExpand) {

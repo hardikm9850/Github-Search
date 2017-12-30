@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_medium"
-            android:text="Apply filter"
+            android:text="@string/apply_filter"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -42,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Filter by language" />
+                android:text="@string/filter_by_language" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinner_language"
@@ -66,7 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Number of forks" />
+                android:text="@string/number_of_forks" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinner_number_of_forks"
@@ -90,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="License" />
+                android:text="@string/license" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinner_license"
@@ -113,7 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Search in" />
+                android:text="@string/search_in" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinner_search_in"
@@ -125,11 +125,110 @@
         </LinearLayout>
 
 
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/TextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/topic" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edt_topic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_weight="1"
+                android:hint="@string/enter_topic_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@android:color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            android:background="#ffbebebe"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/linear_from_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Select From date"
+                    android:textColor="@android:color/black" />
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_from_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="YYYY/MM/DD"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.01"
+                android:background="@android:color/black" />
+
+            <LinearLayout
+                android:id="@+id/linear_to_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Select To date"
+                    android:textColor="@android:color/black" />
+
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/txt_to_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="YYYY/MM/DD"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
-            android:text="Sort by"
+            android:gravity="center"
+            android:text="@string/sort_by"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -181,7 +280,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_medium"
-            android:text="Order by"
+            android:gravity="center"
+            android:text="@string/order_by"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

@@ -23,4 +23,13 @@
     <string name="internet_required">Need internet connection</string>
     <string name="something_went_wrong">Something went wrong, please try again</string>
     <string name="watcher_count">Watcher count</string>
+    <string name="apply_filter">Apply filter</string>
+    <string name="filter_by_language">Filter by language</string>
+    <string name="number_of_forks">Number of forks</string>
+    <string name="license">License</string>
+    <string name="search_in">Search in</string>
+    <string name="sort_by">Sort by</string>
+    <string name="order_by">Order by</string>
+    <string name="topic">Topic</string>
+    <string name="enter_topic_name">Enter topic name</string>
 </resources>

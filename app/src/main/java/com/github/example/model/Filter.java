@@ -11,6 +11,9 @@ public class Filter {
     private int searchInIndex;
     private String orderBy;
     private String sortBy;
+    private String fromDate;
+    private String toDate;
+
 
     private Filter(Builder builder) {
         languageIndex = builder.languageIndex;
@@ -19,12 +22,21 @@ public class Filter {
         searchInIndex = builder.searchInIndex;
         orderBy = builder.orderBy;
         sortBy = builder.sortBy;
+        toDate = builder.toDate;
+        fromDate = builder.fromDate;
     }
 
     public int getLanguageIndex() {
         return languageIndex;
     }
 
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
 
     public int getNumberOfForksIndex() {
         return numberOfForksIndex;
@@ -59,7 +71,9 @@ public class Filter {
         if (licenseIndex != filter.licenseIndex) return false;
         if (searchInIndex != filter.searchInIndex) return false;
         if (!orderBy.equals(filter.orderBy)) return false;
-        return sortBy.equals(filter.sortBy);
+        if (!sortBy.equals(filter.sortBy)) return false;
+        if (!fromDate.equals(filter.fromDate)) return false;
+        return toDate.equals(filter.toDate);
     }
 
     @Override
@@ -70,8 +84,11 @@ public class Filter {
         result = 31 * result + searchInIndex;
         result = 31 * result + orderBy.hashCode();
         result = 31 * result + sortBy.hashCode();
+        result = 31 * result + fromDate.hashCode();
+        result = 31 * result + toDate.hashCode();
         return result;
     }
+
 
     public static final class Builder {
         private int languageIndex;
@@ -80,6 +97,8 @@ public class Filter {
         private int searchInIndex;
         private String orderBy;
         private String sortBy;
+        private String fromDate;
+        private String toDate;
 
         public Builder() {
         }
@@ -112,6 +131,16 @@ public class Filter {
 
         public Builder sortBy(String val) {
             sortBy = val;
+            return this;
+        }
+
+        public Builder fromDate(String val) {
+            fromDate = val;
+            return this;
+        }
+
+        public Builder toDate(String val) {
+            toDate = val;
             return this;
         }
 

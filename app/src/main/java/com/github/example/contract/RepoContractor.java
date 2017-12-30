@@ -31,6 +31,8 @@ public interface RepoContractor {
 
         String DEFAULT_SORT_BY = "watcher_count";
         String DEFAULT_ORDER_BY = "desc";
+        String DATE_PLACEHOLDER = "YYYY-MM-DD";
+
 
         String SHARED_PREFS_NAME = "github_search";
         String KEY_ORDER_BY = "order_by";
@@ -39,6 +41,8 @@ public interface RepoContractor {
         String KEY_LICENSE_INDEX = "license_index";
         String KEY_SEARCH_IN_INDEX = "search_index";
         String KEY_NUMBER_OF_FORKS_INDEX = "forks_index";
+        String KEY_CREATED_FROM_DATE = "created_from_date";
+        String KEY_CREATED_TO_DATE = "created_to_date";
 
     }
 
