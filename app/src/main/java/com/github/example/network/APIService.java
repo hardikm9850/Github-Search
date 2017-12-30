@@ -29,7 +29,7 @@ public interface APIService {
      * @return repo response containing result
      */
     @GET("search/repositories")
-    Observable<RepoResponse> getRepositories(@Query("q") String repoName, @Query("sort") String sortBy,
+    Observable<RepoResponse> getRepositories(@Query(value = "q", encoded = true) String repoName, @Query("sort") String sortBy,
                                              @Query("order") String orderBy, @Query("per_page") int limit, @Query("page") int pageIndex);
 
 

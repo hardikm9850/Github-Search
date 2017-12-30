@@ -24,7 +24,7 @@ public interface RepoContractor {
         //Sharedpreference key and array for index mapping
         String[] languageArray = new String[]{"No option selected", "Java", "C", "C++", "PHP"};
         String[] licenseNameArray = new String[]{"No option selected", "mit", "apache-2.0", "artistic-2.0", "osl-3.0"};
-        String[] noOfForksArray = new String[]{"No option selected", "forks:<100", "forks:<500", "forks:<1000", "forks:>1000", "forks:>2000"};
+        String[] noOfForksArray = new String[]{"No option selected", "<100", "<500", "<1000", ">1000", ">2000"};
         String[] searchInArray = new String[]{"No option selected", "name", "description", "readme"};
 
         String DEFAULT_SORT_BY = "watcher_count";

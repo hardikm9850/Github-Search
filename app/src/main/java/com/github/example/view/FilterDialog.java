@@ -24,7 +24,6 @@ import android.widget.SpinnerAdapter;
 import com.github.example.R;
 import com.github.example.model.Filter;
 
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +33,7 @@ import butterknife.ButterKnife;
  */
 
 
-public class FilterDialog extends Dialog {
+class FilterDialog extends Dialog {
 
     @BindView(R.id.closeDialogImg)
     ImageView closeDialogImg;
@@ -78,14 +77,14 @@ public class FilterDialog extends Dialog {
     private String[] searchInArray = new String[]{"No option selected", "Title", "Description", "ReadMe.MD"};
 
 
-    public FilterDialog(@NonNull Context context, FloatingActionButton fabFilter, View.OnClickListener clickListener) {
+    FilterDialog(@NonNull Context context, FloatingActionButton fabFilter, View.OnClickListener clickListener) {
         super(context);
         this.context = context;
         this.fabFilter = fabFilter;
         onClickListener = clickListener;
     }
 
-    public void createDialog() {
+    void createDialog() {
         dialogView = View.inflate(context, R.layout.layout_filter, null);
         ButterKnife.bind(this, dialogView);
         dialog = new Dialog(context, R.style.FloatingDialogStyle);
@@ -143,9 +142,10 @@ public class FilterDialog extends Dialog {
 
     /**
      * Returns user's selected filter option back to callee
+     *
      * @return filter object containing filter option
      */
-    public Filter getFilters() {
+    Filter getFilters() {
         int languageIndex = spinnerLanguage.getSelectedItemPosition();
         int licenseIndex = spinnerLicense.getSelectedItemPosition();
         int forkIndex = spinnerNumberOfForks.getSelectedItemPosition();
@@ -180,8 +180,8 @@ public class FilterDialog extends Dialog {
             break;
         }
         Filter.Builder builder = new Filter.Builder();
-        builder.orderBy(orderBy). //order by
-                sortBy(sortBy). //sort by
+        builder.orderBy(orderBy.toLowerCase()). //order by
+                sortBy(sortBy.toLowerCase()). //sort by
                 languageIndex(languageIndex).licenseIndex(licenseIndex). //filtering options
                 numberOfForksIndex(forkIndex).searchInIndex(searchIndex);
         return builder.build();
@@ -189,9 +189,10 @@ public class FilterDialog extends Dialog {
 
     /**
      * Sets view according to saved user's filter option
+     *
      * @param filter filter object containing user's filter options
      */
-    public void onStoredFilterReceived(Filter filter) {
+    void onStoredFilterReceived(Filter filter) {
         String sortBy = filter.getSortBy().toLowerCase();
         String orderBy = filter.getOrderBy().toLowerCase();
         int languageIndex = filter.getLanguageIndex();
@@ -233,7 +234,7 @@ public class FilterDialog extends Dialog {
         spinnerNumberOfForks.setSelection(numberOfForks);
     }
 
-    public void revealShow(boolean shouldExpand) {
+    void revealShow(boolean shouldExpand) {
         final View view = dialogView.findViewById(R.id.dialog);
         int w = view.getWidth();
         int h = view.getHeight();
