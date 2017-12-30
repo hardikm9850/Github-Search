@@ -12,10 +12,6 @@ import com.github.example.model.RepoResponse;
 public interface RepoContractor {
 
     interface RepoPresenter {
-        String[] languageArray = new String[]{"No option selected", "Java", "C", "C++", "PHP"};
-        String[] licenseNameArray = new String[]{"No option selected", "mit", "apache-2.0", "artistic-2.0", "osl-3.0"};
-        String[] noOfForksArray = new String[]{"No option selected", "forks:<100", "forks:<500", "forks:<1000", "forks:>1000", "forks:>2000"};
-        String[] searchInArray = new String[]{"No option selected", "name", "description", "readme"};
 
         void onQuerySubmitted(String repoName);
 
@@ -24,6 +20,24 @@ public interface RepoContractor {
         void getSelectedFilterOption();
 
         void clearFilters();
+
+        //Sharedpreference key and array for index mapping
+        String[] languageArray = new String[]{"No option selected", "Java", "C", "C++", "PHP"};
+        String[] licenseNameArray = new String[]{"No option selected", "mit", "apache-2.0", "artistic-2.0", "osl-3.0"};
+        String[] noOfForksArray = new String[]{"No option selected", "forks:<100", "forks:<500", "forks:<1000", "forks:>1000", "forks:>2000"};
+        String[] searchInArray = new String[]{"No option selected", "name", "description", "readme"};
+
+        String DEFAULT_SORT_BY = "watcher_count";
+        String DEFAULT_ORDER_BY = "desc";
+
+        String SHARED_PREFS_NAME = "github_search";
+        String KEY_ORDER_BY = "order_by";
+        String KEY_SORT_BY = "sort_by";
+        String KEY_LANGUAGE_INDEX = "language_index";
+        String KEY_LICENSE_INDEX = "license_index";
+        String KEY_SEARCH_IN_INDEX = "search_index";
+        String KEY_NUMBER_OF_FORKS_INDEX = "forks_index";
+
     }
 
     interface RepoView {

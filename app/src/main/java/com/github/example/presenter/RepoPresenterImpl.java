@@ -11,21 +11,11 @@ import com.github.example.interactor.RepoInteractor;
 import com.github.example.model.Filter;
 import com.github.example.model.Item;
 import com.github.example.model.RepoResponse;
-import com.github.example.utils.Utils;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.github.example.utils.Utils.DEFAULT_ORDER_BY;
-import static com.github.example.utils.Utils.DEFAULT_SORT_BY;
-import static com.github.example.utils.Utils.KEY_LANGUAGE_INDEX;
-import static com.github.example.utils.Utils.KEY_LICENSE_INDEX;
-import static com.github.example.utils.Utils.KEY_NUMBER_OF_FORKS_INDEX;
-import static com.github.example.utils.Utils.KEY_ORDER_BY;
-import static com.github.example.utils.Utils.KEY_SEARCH_IN_INDEX;
-import static com.github.example.utils.Utils.KEY_SORT_BY;
-import static com.github.example.utils.Utils.SHARED_PREFS_NAME;
 
 /**
  * Created by hardik on 23/12/17.
@@ -203,7 +193,7 @@ public class RepoPresenterImpl implements RepoContractor.RepoPresenter, ResultCa
     /**
      * Sort data only if condition is watcher_count
      *
-     * @return
+     * @return boolean indicating if manually ordering of result data is required
      */
     private boolean shouldSortData() {
         orderBy = sharedPreferences.getString(KEY_SORT_BY, "watcher_count");
